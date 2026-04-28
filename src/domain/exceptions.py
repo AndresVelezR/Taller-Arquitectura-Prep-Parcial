@@ -58,8 +58,8 @@ class ChatServiceError(Exception):
     Se lanza cuando hay un error en el servicio de chat.
 
     Example:
-        >>> raise ChatServiceError("Falló la conexión con Gemini AI")
-        ChatServiceError: Falló la conexión con Gemini AI
+        >>> raise ChatServiceError("Falló la conexión con Gemini")
+        ChatServiceError: Falló la conexión con Gemini
     """
 
     def __init__(self, message: str = None):

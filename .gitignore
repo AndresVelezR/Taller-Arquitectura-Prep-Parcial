@@ -41,5 +41,5 @@ Thumbs.db
 # Evidence screenshots (taken locally by student, not versioned)
 evidencias/*.png
 
-# Planning docs (not part of deliverable)
+# Local dev/meta docs (not part of deliverable)
 PLAN.md

@@ -72,9 +72,9 @@ def mock_chat_repository() -> MagicMock:
 
 
 @pytest.fixture
-def mock_ai_service() -> MagicMock:
+def mock_assistant_service() -> MagicMock:
     """
-    Fixture que retorna un mock del servicio de IA.
+    Fixture que retorna un mock del servicio del asistente.
 
     Returns:
         MagicMock: Mock de GeminiService.

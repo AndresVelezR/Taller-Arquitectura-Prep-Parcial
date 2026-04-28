@@ -25,7 +25,7 @@ from src.infrastructure.repositories.chat_repository import SQLChatRepository
 from src.infrastructure.repositories.product_repository import SQLProductRepository
 
 app = FastAPI(
-    title="E-commerce Chat AI",
+    title="E-commerce Chat",
     description="API REST de e-commerce de zapatos con chat inteligente",
     version="1.0.0",
 )
@@ -61,7 +61,7 @@ def read_root():
         Información de la API, versión y endpoints disponibles.
     """
     return {
-        "name": "E-commerce Chat AI",
+        "name": "E-commerce Chat",
         "version": "1.0.0",
         "description": "API REST de e-commerce de zapatos con chat inteligente",
         "endpoints": {
@@ -118,23 +118,23 @@ def get_product(product_id: int, db: Session = Depends(get_db)):
 @app.post("/chat", response_model=ChatMessageResponseDTO)
 async def chat(request: ChatMessageRequestDTO, db: Session = Depends(get_db)):
     """
-    Procesa un mensaje de chat y retorna respuesta del asistente IA.
+    Procesa un mensaje de chat y retorna respuesta del asistente.
 
     Args:
         request: Mensaje del usuario con session_id.
         db: Sesión de base de datos inyectada por FastAPI.
 
     Returns:
-        Respuesta generada por la IA con timestamp.
+        Respuesta generada por el asistente con timestamp.
 
     Raises:
         HTTPException: 500 si hay un error procesando el mensaje.
     """
     product_repo = SQLProductRepository(db)
     chat_repo = SQLChatRepository(db)
-    ai_service = GeminiService()
+    assistant_service = GeminiService()
 
-    service = ChatService(product_repo, chat_repo, ai_service)
+    service = ChatService(product_repo, chat_repo, assistant_service)
 
     try:
         return await service.process_message(request)
@@ -164,9 +164,9 @@ def get_chat_history(
     """
     product_repo = SQLProductRepository(db)
     chat_repo = SQLChatRepository(db)
-    ai_service = GeminiService()
+    assistant_service = GeminiService()
 
-    service = ChatService(product_repo, chat_repo, ai_service)
+    service = ChatService(product_repo, chat_repo, assistant_service)
     return service.get_session_history(session_id, limit)
 
 
@@ -184,9 +184,9 @@ def delete_chat_history(session_id: str, db: Session = Depends(get_db)):
     """
     product_repo = SQLProductRepository(db)
     chat_repo = SQLChatRepository(db)
-    ai_service = GeminiService()
+    assistant_service = GeminiService()
 
-    service = ChatService(product_repo, chat_repo, ai_service)
+    service = ChatService(product_repo, chat_repo, assistant_service)
     deleted_count = service.clear_session_history(session_id)
 
     return {"deleted": deleted_count, "session_id": session_id}
