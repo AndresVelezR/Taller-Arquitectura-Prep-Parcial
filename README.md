@@ -325,7 +325,7 @@ pytest -v
 
 ## Autor
 
-[Tu Nombre] - Universidad EAFIT
+Andrés Vélez Rendón - Universidad EAFIT
 
 ## Licencia
 
