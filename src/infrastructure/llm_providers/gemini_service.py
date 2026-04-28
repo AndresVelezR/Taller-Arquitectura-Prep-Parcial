@@ -1,5 +1,5 @@
 """
-Servicio de integración con Google Gemini AI.
+Servicio de integración con Google Gemini.
 
 Genera respuestas conversacionales contextuales usando el modelo
 de lenguaje Gemini de Google.
@@ -15,7 +15,7 @@ from src.domain.entities import ChatContext, Product
 
 class GeminiService:
     """
-    Servicio para interactuar con Google Gemini AI.
+    Servicio para interactuar con Google Gemini.
 
     Genera respuestas contextuales para el chat del e-commerce,
     considerando el inventario de productos y el historial conversacional.
@@ -45,7 +45,7 @@ class GeminiService:
         context: ChatContext,
     ) -> str:
         """
-        Genera una respuesta conversacional usando Gemini AI.
+        Genera una respuesta conversacional usando Gemini.
 
         Args:
             user_message: Mensaje actual del usuario.
@@ -53,7 +53,7 @@ class GeminiService:
             context: Contexto conversacional con mensajes recientes.
 
         Returns:
-            Respuesta generada por la IA.
+            Respuesta generada por el asistente.
 
         Raises:
             Exception: Si hay un error en la comunicación con Gemini API.

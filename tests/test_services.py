@@ -78,29 +78,29 @@ class TestChatService:
     """Tests para ChatService."""
 
     @pytest.mark.asyncio
-    async def test_process_message_calls_ai_service_with_correct_args(
+    async def test_process_message_calls_assistant_service_with_correct_args(
         self,
         mock_product_repository: MagicMock,
         mock_chat_repository: MagicMock,
-        mock_ai_service: MagicMock,
+        mock_assistant_service: MagicMock,
         sample_product: Product,
     ) -> None:
-        """Test que process_message llama al servicio de IA con los argumentos correctos."""
+        """Test que process_message llama al servicio del asistente con los argumentos correctos."""
         mock_product_repository.get_all.return_value = [sample_product]
         mock_chat_repository.get_recent_messages.return_value = []
         mock_chat_repository.save_message.return_value = ChatMessage(
             1, "test", "user", "test", datetime.utcnow()
         )
-        mock_ai_service.generate_response = AsyncMock(return_value="AI response")
+        mock_assistant_service.generate_response = AsyncMock(return_value="assistant response")
 
-        service = ChatService(mock_product_repository, mock_chat_repository, mock_ai_service)
+        service = ChatService(mock_product_repository, mock_chat_repository, mock_assistant_service)
         request = ChatMessageRequestDTO(session_id="test", message="Hola")
 
         result = await service.process_message(request)
 
-        assert result.assistant_message == "AI response"
+        assert result.assistant_message == "assistant response"
         assert result.user_message == "Hola"
-        mock_ai_service.generate_response.assert_called_once()
+        mock_assistant_service.generate_response.assert_called_once()
         assert mock_chat_repository.save_message.call_count == 2
 
     @pytest.mark.asyncio
@@ -108,7 +108,7 @@ class TestChatService:
         self,
         mock_product_repository: MagicMock,
         mock_chat_repository: MagicMock,
-        mock_ai_service: MagicMock,
+        mock_assistant_service: MagicMock,
         sample_product: Product,
     ) -> None:
         """Test que process_message guarda mensaje del usuario y del asistente."""
@@ -117,9 +117,9 @@ class TestChatService:
         mock_chat_repository.save_message.return_value = ChatMessage(
             1, "test", "user", "test", datetime.utcnow()
         )
-        mock_ai_service.generate_response = AsyncMock(return_value="AI response")
+        mock_assistant_service.generate_response = AsyncMock(return_value="assistant response")
 
-        service = ChatService(mock_product_repository, mock_chat_repository, mock_ai_service)
+        service = ChatService(mock_product_repository, mock_chat_repository, mock_assistant_service)
         request = ChatMessageRequestDTO(session_id="test", message="Hola")
 
         await service.process_message(request)
@@ -130,12 +130,12 @@ class TestChatService:
         self,
         mock_product_repository: MagicMock,
         mock_chat_repository: MagicMock,
-        mock_ai_service: MagicMock,
+        mock_assistant_service: MagicMock,
         sample_chat_message: ChatMessage,
     ) -> None:
         """Test que get_session_history retorna lista de DTOs."""
         mock_chat_repository.get_session_history.return_value = [sample_chat_message]
-        service = ChatService(mock_product_repository, mock_chat_repository, mock_ai_service)
+        service = ChatService(mock_product_repository, mock_chat_repository, mock_assistant_service)
 
         result = service.get_session_history("test", limit=10)
 
@@ -150,11 +150,11 @@ class TestChatService:
         self,
         mock_product_repository: MagicMock,
         mock_chat_repository: MagicMock,
-        mock_ai_service: MagicMock,
+        mock_assistant_service: MagicMock,
     ) -> None:
         """Test que clear_session_history retorna cantidad eliminada."""
         mock_chat_repository.delete_session_history.return_value = 5
-        service = ChatService(mock_product_repository, mock_chat_repository, mock_ai_service)
+        service = ChatService(mock_product_repository, mock_chat_repository, mock_assistant_service)
 
         result = service.clear_session_history("test")
 

@@ -1,8 +1,8 @@
 """
-Servicio de aplicación para gestionar el chat con IA.
+Servicio de aplicación para gestionar el chat con asistente.
 
 Orquesta la interacción entre productos, historial de chat
-y el servicio de IA de Google Gemini para proporcionar
+y el servicio del asistente de Google Gemini para proporcionar
 respuestas contextuales a los usuarios.
 """
 from datetime import datetime
@@ -17,22 +17,22 @@ from .dtos import ChatHistoryDTO, ChatMessageRequestDTO, ChatMessageResponseDTO
 
 class ChatService:
     """
-    Servicio de aplicación para el chat conversacional con IA.
+    Servicio de aplicación para el chat conversacional con asistente.
 
-    Coordina productos, historial de conversación y el servicio de IA
+    Coordina productos, historial de conversación y el servicio del asistente
     para generar respuestas contextuales y coherentes.
 
     Attributes:
         product_repo: Repositorio de productos.
         chat_repo: Repositorio de mensajes de chat.
-        ai_service: Servicio de IA (GeminiService).
+        assistant_service: Servicio del asistente (GeminiService).
     """
 
     def __init__(
         self,
         product_repo: IProductRepository,
         chat_repo: IChatRepository,
-        ai_service,
+        assistant_service,
     ) -> None:
         """
         Inicializa el servicio con sus dependencias.
@@ -40,23 +40,23 @@ class ChatService:
         Args:
             product_repo: Repositorio de productos.
             chat_repo: Repositorio de mensajes.
-            ai_service: Servicio de IA de Google Gemini.
+            assistant_service: Servicio del asistente de Google Gemini.
         """
         self.product_repo = product_repo
         self.chat_repo = chat_repo
-        self.ai_service = ai_service
+        self.assistant_service = assistant_service
 
     async def process_message(
         self, request: ChatMessageRequestDTO
     ) -> ChatMessageResponseDTO:
         """
-        Procesa un mensaje del usuario y genera una respuesta con IA.
+        Procesa un mensaje del usuario y genera una respuesta con asistente.
 
         Flujo:
         1. Obtiene productos disponibles del repositorio.
         2. Recupera historial reciente de la sesión.
         3. Construye contexto conversacional.
-        4. Llama al servicio de IA con contexto completo.
+        4. Llama al servicio del asistente con contexto completo.
         5. Persiste el mensaje del usuario y la respuesta.
         6. Retorna la respuesta empaquetada en un DTO.
 
@@ -64,11 +64,11 @@ class ChatService:
             request: Mensaje del usuario con session_id.
 
         Returns:
-            Respuesta generada por la IA con timestamp.
+            Respuesta generada por el asistente con timestamp.
 
         Raises:
             ChatServiceError: Si hay un error al procesar el mensaje
-                              o comunicarse con el servicio de IA.
+                              o comunicarse con el servicio del asistente.
         """
         try:
             products = self.product_repo.get_all()
@@ -80,7 +80,7 @@ class ChatService:
 
             context = ChatContext(messages=history, max_messages=6)
 
-            assistant_response = await self.ai_service.generate_response(
+            assistant_response = await self.assistant_service.generate_response(
                 user_message=request.message,
                 products=products,
                 context=context,

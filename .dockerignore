@@ -16,5 +16,5 @@ htmlcov/
 .git
 .gitignore
 README.md
-CLAUDE.md
 PLAN.md
+DOCUMENTATION.md

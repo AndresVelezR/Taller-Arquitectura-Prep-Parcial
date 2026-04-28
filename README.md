@@ -1,4 +1,4 @@
-# E-commerce con Chat IA
+# E-commerce con Chat
 
 API REST de e-commerce de zapatos con chat inteligente usando Clean Architecture.
 
@@ -6,7 +6,7 @@ API REST de e-commerce de zapatos con chat inteligente usando Clean Architecture
 
 Sistema de e-commerce que permite:
 - Consultar productos mediante endpoints REST tradicionales
-- Conversar con un asistente de IA (Google Gemini) que ayuda a encontrar zapatos
+- Conversar con un asistente (Google Gemini) que ayuda a encontrar zapatos
 - El asistente mantiene memoria conversacional para respuestas coherentes
 
 Construido con **Clean Architecture** en 3 capas (Domain, Application, Infrastructure).
@@ -17,7 +17,7 @@ Construido con **Clean Architecture** en 3 capas (Domain, Application, Infrastru
 - **FastAPI** - Framework web para APIs REST
 - **SQLAlchemy** - ORM para interacción con base de datos
 - **SQLite** - Base de datos ligera
-- **Google Gemini AI** - Modelo de lenguaje para chat conversacional
+- **Google Gemini** - Modelo de lenguaje para chat conversacional
 - **Pydantic v2** - Validación de datos
 - **Docker** - Containerización
 - **Pytest** - Testing unitario
@@ -49,7 +49,7 @@ src/
 
 ```bash
 git clone <tu-repo>
-cd e-commerce-chat-ai
+cd e-commerce-chat
 ```
 
 ### 2. Crear entorno virtual
@@ -115,7 +115,7 @@ curl http://localhost:8000/products
 curl http://localhost:8000/products/1
 ```
 
-#### Chat con IA
+#### Chat con asistente
 
 ```bash
 # Enviar mensaje al asistente
@@ -219,7 +219,7 @@ La base de datos SQLite se almacena en `./data/ecommerce_chat.db` y persiste ent
 ## Estructura del Proyecto
 
 ```
-e-commerce-chat-ai/
+e-commerce-chat/
 ├── src/
 │   ├── domain/                    # Capa de dominio
 │   │   ├── entities.py            # Product, ChatMessage, ChatContext
@@ -240,7 +240,7 @@ e-commerce-chat-ai/
 │       │   ├── product_repository.py
 │       │   └── chat_repository.py
 │       └── llm_providers/
-│           └── gemini_service.py  # Integración con Gemini AI
+│           └── gemini_service.py  # Integración con Gemini
 ├── tests/                         # Tests unitarios
 ├── evidencias/                    # Screenshots de evidencias
 ├── data/                          # Base de datos SQLite (gitignored)
@@ -262,7 +262,7 @@ e-commerce-chat-ai/
 - Verificar disponibilidad (stock > 0)
 
 ### Chat Inteligente
-- Conversación natural con IA
+- Conversación natural con asistente
 - Memoria conversacional (últimos 6 mensajes)
 - Recomendaciones personalizadas
 - Información de precios y stock en tiempo real

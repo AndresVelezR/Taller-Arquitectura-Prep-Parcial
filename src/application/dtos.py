@@ -142,7 +142,7 @@ class ChatMessageResponseDTO(BaseModel):
     Attributes:
         session_id: Identificador de la sesión
         user_message: Mensaje original del usuario
-        assistant_message: Respuesta generada por la IA
+        assistant_message: Respuesta generada por el asistente
         timestamp: Marca de tiempo de la respuesta
     """
 

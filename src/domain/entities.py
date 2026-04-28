@@ -114,7 +114,7 @@ class ChatMessage:
     Entidad que representa un mensaje en la conversación del chat.
 
     Permite distinguir entre mensajes del usuario y respuestas del asistente
-    de IA para mantener el historial conversacional.
+    para mantener el historial conversacional.
 
     Attributes:
         id: Identificador único del mensaje (None si aún no está persistido)
@@ -157,7 +157,7 @@ class ChatMessage:
 
     def is_from_assistant(self) -> bool:
         """
-        Verifica si el mensaje proviene del asistente de IA.
+        Verifica si el mensaje proviene del asistente.
 
         Returns:
             True si el mensaje es del asistente, False si es del usuario.
@@ -171,7 +171,7 @@ class ChatContext:
     Value Object que encapsula el contexto de una conversación.
 
     Mantiene los mensajes recientes para dar coherencia al chat y permitir
-    que la IA tenga "memoria" de la conversación anterior.
+    que el asistente tenga "memoria" de la conversación anterior.
 
     Attributes:
         messages: Lista de mensajes de la conversación
@@ -192,7 +192,7 @@ class ChatContext:
 
     def format_for_prompt(self) -> str:
         """
-        Formatea los mensajes recientes para incluirlos en el prompt de IA.
+        Formatea los mensajes recientes para incluirlos en el prompt del asistente.
 
         Returns:
             String formateado con el historial, una línea por mensaje.
